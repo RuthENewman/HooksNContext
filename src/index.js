@@ -2,39 +2,37 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 
-const App = props => {
-  const [count, setCount] = useState(props.count);
-  const [text, setText] = useState("");
+const NoteApp = () => {
+  const [notes, setNotes] = useState([]);
+  const [title, setTitle] = useState("");
+
+  const addNote = event => {
+    event.preventDefault();
+    setNotes([...notes, { title }]);
+    setTitle("");
+  };
 
   return (
     <div>
-      <div>
-        <p>
-          The current {text || "count"} is {count}.
-        </p>
-      </div>
-      <div>
-        <button onClick={() => setCount(count + 1)}>+1</button>
-        <button onClick={() => setCount(count - 1)}>-1</button>
-        <button onClick={() => setCount(props.count)}>Reset</button>
-      </div>
-      <div>
-        <label for="text">Change the text from '{text || "count"}' </label>
+      <h1>Notes</h1>
+      {notes.map(note => (
+        <div>
+          <h3>{note.title}</h3>
+        </div>
+      ))}
+      <p>Add a note</p>
+      <form onSubmit={addNote}>
         <input
-          id="text"
           type="text"
-          value={text}
-          onChange={event => setText(event.target.value)}
+          value={title}
+          onChange={event => setTitle(event.target.value)}
         />
-      </div>
+        <button>Submit</button>
+      </form>
     </div>
   );
 };
 
-App.defaultProps = {
-  count: 0
-};
-
-ReactDOM.render(<App count={2} />, document.getElementById("root"));
+ReactDOM.render(<NoteApp />, document.getElementById("root"));
 
 serviceWorker.unregister();
