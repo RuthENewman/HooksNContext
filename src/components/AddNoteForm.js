@@ -1,0 +1,39 @@
+import React, { useState } from "react";
+
+const AddNoteForm = ({ dispatch }) => {
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+
+  const addNote = event => {
+    event.preventDefault();
+    dispatch({
+      type: "ADD_NOTE",
+      title,
+      body
+    });
+    setTitle("");
+    setBody("");
+  };
+
+  return (
+    <div>
+      <p>Add a note</p>
+      <form onSubmit={addNote}>
+        <input
+          placeholder="Title"
+          type="text"
+          value={title}
+          onChange={event => setTitle(event.target.value)}
+        />
+        <textarea
+          value={body}
+          placeholder="Add your note"
+          onChange={event => setBody(event.target.value)}
+        />
+        <button>Submit</button>
+      </form>
+    </div>
+  );
+};
+
+export { AddNoteForm as default };
