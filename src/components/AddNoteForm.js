@@ -18,7 +18,7 @@ const AddNoteForm = () => {
   };
 
   return (
-    <div>
+    <>
       <p>Add a note</p>
       <form onSubmit={addNote}>
         <input
@@ -34,7 +34,7 @@ const AddNoteForm = () => {
         />
         <button>Submit</button>
       </form>
-    </div>
+    </>
   );
 };
 
